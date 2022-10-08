@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<repositories version="1.0">
+  <repo quality="stable" status="unofficial">
+    <name>agam778-overlay</name>
+      <description lang="en">Agampreet Singh's Custom Gentoo Overlay.</description>
+        <homepage>https://github.com/agam778/agam778-overlay</homepage>
+        <owner type="person">
+            <name>Agampreet Singh</name>
+            <email>agam778@zohomail.in</email>
+        </owner>
+        <source type="git">git://github.com/agam778/agam778-overlay.git</source>
+        <feed>https://github.com/agam778/agam778-overlay/commits/master.atom</feed>
+  </repo>
+</repositories>
