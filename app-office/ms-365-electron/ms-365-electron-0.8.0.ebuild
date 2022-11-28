@@ -11,9 +11,9 @@ CHROMIUM_LANGS="
 
 inherit chromium-2 desktop rpm xdg
 
-DESCRIPTION="Unofficial Microsoft Office Online Desktop Client made with Electron"
-HOMEPAGE="https://github.com/agam778/MS-Office-Electron"
-SRC_URI="https://github.com/agam778/MS-Office-Electron/releases/download/v${PV}/MS-Office-Electron-Setup-v${PV}-linux-x86_64.rpm"
+DESCRIPTION="Unofficial Microsoft 365 Web Desktop Wrapper made with Electron "
+HOMEPAGE="https://github.com/agam778/MS-365-Electron"
+SRC_URI="https://github.com/agam778/MS-365-Electron/releases/download/v${PV}/MS-365-Electron-v${PV}-linux-x86_64.rpm"
 S="${WORKDIR}"
 
 KEYWORDS="-* ~amd64"
@@ -50,7 +50,7 @@ RDEPEND="
 	x11-libs/pango
 "
 
-QA_PREBUILT="opt/MS-Office-Electron/*"
+QA_PREBUILT="opt/MS-365-Electron/*"
 
 pkg_pretend() {
 	chromium_suid_sandbox_check_kernel_config
@@ -58,8 +58,8 @@ pkg_pretend() {
 
 src_prepare() {
 	default
-	sed -i -e '/MimeType=MS-Office-Electron/d' usr/share/applications/ms-office-electron.desktop || die
-	pushd "opt/MS-Office-Electron/locales" || die
+	sed -i -e '/MimeType=MS-365-Electron/d' usr/share/applications/ms-365-electron.desktop || die
+	pushd "opt/MS-365-Electron/locales" || die
 	chromium_remove_language_paks
 	popd || die
 }
@@ -71,16 +71,16 @@ src_configure() {
 
 src_install() {
 	for size in {64,128,512}; do
-		doicon -s ${size} "usr/share/icons/hicolor/${size}x${size}/apps/ms-office-electron.png"
+		doicon -s ${size} "usr/share/icons/hicolor/${size}x${size}/apps/ms-365-electron.png"
 	done
 
-	domenu usr/share/applications/ms-office-electron.desktop
+	domenu usr/share/applications/ms-365-electron.desktop
 
-	local DESTDIR="/opt/MS-Office-Electron"
-	pushd "opt/MS-Office-Electron" || die
+	local DESTDIR="/opt/MS-365-Electron"
+	pushd "opt/MS-365-Electron" || die
 
 	exeinto "${DESTDIR}"
-	doexe chrome-sandbox ms-office-electron *.so*
+	doexe chrome-sandbox ms-365-electron *.so*
 
 	insinto "${DESTDIR}"
 	doins *.pak *.bin *.json *.dat
@@ -90,6 +90,6 @@ src_install() {
 	# see https://github.com/electron/electron/issues/17972
 	fperms 4755 "${DESTDIR}"/chrome-sandbox
 
-	dosym "${DESTDIR}"/ms-office-electron /opt/bin/ms-office-electron
+	dosym "${DESTDIR}"/ms-365-electron /opt/bin/ms-365-electron
 	popd || die
 }
